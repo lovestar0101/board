@@ -77,7 +77,7 @@ function renderAll(r){const h=r.history||{}, ids=Object.keys(BLOGNAME), months=[
   const c2=element('article','card'),t2=element('table','mt'),h2=element('tr');for(const x of ['블로그별','애드포스트','쇼핑','메이트','합계'])h2.append(element('th','',x));t2.append(h2);
   for(const k of ids){const v=Object.values(h[k]||{}),a=v.reduce((s,x)=>s+(x.ad||0),0),sh=v.reduce((s,x)=>s+(x.sh||0),0),mt=v.reduce((s,x)=>s+(x.mate||0),0),tr=element('tr');tr.append(element('td','',BLOGNAME[k]),element('td','',W(a)),element('td','',W(sh)),element('td','',mt?W(mt):'—'),element('td','sumc',W(a+sh+mt)));t2.append(tr);}
   c2.append(t2);$('adpost').append(c2);mateCard(r);}
-function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost','shop'])$(id).replaceChildren();if(!r){$('moneysum').append(element('article','card','수익 자료가 아직 없어요 — 오전 10시 이후 노트북에서 한 번 모아요'));return;}
+function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost','shop'])$(id).replaceChildren();if(!r){$('moneysum').append(element('article','card','수익 자료가 아직 없어요 — 노트북 바탕화면 「수익 불러오기」를 눌러 주세요'));return;}
   if(mon==='all'){for(const b of document.querySelectorAll('#monthtabs button'))b.setAttribute('aria-selected',String(b.dataset.m===mon));renderAll(r);return;}
   const m=+r.month.slice(5), last=mon==='last_month', pm=m===1?12:m-1, ads=r.adpost||{}, shops=r.shop||{}, ids=Object.keys(BLOGNAME);
   for(const b of document.querySelectorAll('#monthtabs button'))b.setAttribute('aria-selected',String(b.dataset.m===mon));
@@ -88,8 +88,8 @@ function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost'
   const card=element('article','card');
   card.append(element('div','mlabel2',last?`${pm}월 합계`:'이번 달 합계'),element('div','big',won(tad+tsh+tmt)));
   if(!last){const lt=ids.reduce((a,k)=>a+(ads[k]?ads[k].last_month:0)+(shops[k]?shops[k].last_month.won:0)+MT(k,ymOf(1)),0);card.append(element('div','yesterday',`지난달 ${won(lt)}`));
-    for(const [i,d] of (r.daily||[]).entries()){const md=`${+d.date.slice(5,7)}/${+d.date.slice(8)}`;card.append(element('div','yesterday',`${i?'그제':'어제'}(${md}) ${won((d.ad||0)+d.sh)} · 애드포스트 ${d.ad==null?'집계 중':won(d.ad)} · 쇼핑 ${won(d.sh)}`));}
-    card.append(element('div','yesterday','오늘 수익은 네이버가 다음 날 집계해서 내일 보여요'));}
+    for(const d of r.daily||[]){const md=`${+d.date.slice(5,7)}/${+d.date.slice(8)}`;card.append(element('div','yesterday',`${md} ${won(d.ad+d.sh)} · 애드포스트 ${won(d.ad)} · 쇼핑 ${won(d.sh)}`));}
+    card.append(element('div','yesterday','최근 확정된 두 날 · 노트북 바탕화면 「수익 불러오기」로 새로 읽어요'));}
   const t=element('table','mt'),head=element('tr');for(const h of ['','애드포스트','쇼핑',...(tmt?['메이트']:[]),'합계'])head.append(element('th','',h));t.append(head);
   for(const x of rows){const tr=element('tr');tr.append(element('td','',BLOGNAME[x.k]),element('td','',won(x.ad)),element('td','',won(x.sh)));if(tmt)tr.append(element('td','',won(x.mt)));tr.append(element('td','sumc',won(x.ad+x.sh+x.mt)));t.append(tr);}
   const tr=element('tr','totr');tr.append(element('td','','합계'),element('td','',won(tad)),element('td','',won(tsh)));if(tmt)tr.append(element('td','',won(tmt)));tr.append(element('td','sumc',won(tad+tsh+tmt)));t.append(tr);
