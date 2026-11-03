@@ -56,6 +56,12 @@ function render(){if(!data)return;const today=kstDay(new Date()), yesterday=kstD
   for(const item of Object.values(data.ai)){const card=element('article','card');card.append(heading(item));for(const [key,label] of [['five_hour','5시간'],['seven_day','1주']]){const w=item[key]||{}, n=w.remaining,known=typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=100, cls=!known?'unknown':n>=50?'good':n>=20?'care':'low',state=!known?'미확인':n>=50?'여유':n>=20?'주의':'부족';const metric=element('div','metric'),line=element('div','metricline'),v=element('span','value '+cls,known?`${Math.round(n)}%`:'미확인');if(known)v.append(element('span','state',state));line.append(element('span','label',label+' 남음'),v);const track=element('div','track '+cls),fill=element('div','fill');fill.style.width=(known?n:0)+'%';track.setAttribute('role','meter');track.setAttribute('aria-label',label+' 남은 한도');if(known){track.setAttribute('aria-valuenow',n);track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');}track.setAttribute('aria-valuetext',known?`${Math.round(n)}% ${state}`:'미확인');track.append(fill);metric.append(line,track,element('div','reset',resetText(w.reset_at)));card.append(metric);}$('ai').append(card);}renderMoney();updateStatus();}
 const BLOGNAME={nakassi:'다낚아',kostarday:'별하루',ko_jang623:'카노트'}, won=v=>v==null?'미확인':v.toLocaleString('ko-KR')+'원';
 let mon='month';
+function mateCard(r){const mt=r.mate||{};if(!Object.keys(mt).length)return;const ids=Object.keys(BLOGNAME),c=element('article','card');
+  c.append(element('div','mlabel2','네이버 메이트 (선정되면 월 30만원)'));const t=element('table','mt'),h=element('tr');for(const x of ['','선정','이번 달 AI 인용','누적'])h.append(element('th','',x));t.append(h);
+  const n=v=>v==null?'—':v.toLocaleString('ko-KR');
+  for(const k of ids){const v=mt[k];if(!v)continue;const tr=element('tr');tr.append(element('td','',BLOGNAME[k]),element('td',v.selected?'sumc good':'muted',v.selected?'✅ 선정':'아직'),element('td','',n(v.month_count)),element('td','',n(v.total_count)));t.append(tr);}
+  c.append(t);const sel=ids.find(k=>mt[k]&&mt[k].sel_count);if(sel)c.append(element('div','yesterday',`선정 심사 기간(${mt[sel].sel_month}월) 인용: `+ids.filter(k=>mt[k]&&mt[k].sel_count!=null).map(k=>`${BLOGNAME[k]} ${n(mt[k].sel_count)}회`).join(' · ')));
+  c.append(element('div','yesterday','매달 선정되면 메일·네이버앱 알림이 와요. AI 브리핑 인용 수가 가장 중요한 기준이에요.'));$('moneysum').append(c);}
 function renderAll(r){const h=r.history||{}, ids=Object.keys(BLOGNAME), months=[...new Set(ids.flatMap(k=>Object.keys(h[k]||{})))].sort();
   const mrow=ym=>ids.reduce((o,k)=>{const v=(h[k]||{})[ym]||{};o.ad+=v.ad||0;o.sh+=v.sh||0;return o;},{ad:0,sh:0}), list=months.map(ym=>({ym,...mrow(ym)})).filter(x=>x.ad+x.sh>0);
   if(!list.length){$('moneysum').append(element('article','card','월별 기록이 아직 없어요'));return;}
@@ -69,7 +75,7 @@ function renderAll(r){const h=r.history||{}, ids=Object.keys(BLOGNAME), months=[
   for(const x of list){const c=element('div','col'),b=element('div','bar');b.style.height=((x.ad+x.sh)/max*44)+'px';c.append(b,element('span','lbl',+x.ym.slice(5)+'월'));bars.append(c);}card.append(bars);$('moneysum').append(card);
   const c2=element('article','card'),t2=element('table','mt'),h2=element('tr');for(const x of ['블로그별','애드포스트','쇼핑','합계'])h2.append(element('th','',x));t2.append(h2);
   for(const k of ids){const v=Object.values(h[k]||{}),a=v.reduce((s,x)=>s+(x.ad||0),0),sh=v.reduce((s,x)=>s+(x.sh||0),0),tr=element('tr');tr.append(element('td','',BLOGNAME[k]),element('td','',won(a)),element('td','',won(sh)),element('td','sumc',won(a+sh)));t2.append(tr);}
-  c2.append(t2);$('adpost').append(c2);}
+  c2.append(t2);$('adpost').append(c2);mateCard(r);}
 function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost','shop'])$(id).replaceChildren();if(!r){$('moneysum').append(element('article','card','수익 자료가 아직 없어요 — 오전 10시 이후 노트북에서 한 번 모아요'));return;}
   if(mon==='all'){for(const b of document.querySelectorAll('#monthtabs button'))b.setAttribute('aria-selected',String(b.dataset.m===mon));renderAll(r);return;}
   const m=+r.month.slice(5), last=mon==='last_month', pm=m===1?12:m-1, ads=r.adpost||{}, shops=r.shop||{}, ids=Object.keys(BLOGNAME);
@@ -84,7 +90,7 @@ function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost'
   for(const x of rows){const tr=element('tr');tr.append(element('td','',BLOGNAME[x.k]),element('td','',won(x.ad)),element('td','',won(x.sh)),element('td','sumc',won(x.ad+x.sh)));t.append(tr);}
   const tr=element('tr','totr');tr.append(element('td','','합계'),element('td','',won(tad)),element('td','',won(tsh)),element('td','sumc',won(tad+tsh)));t.append(tr);
   card.append(t,element('div','yesterday','쇼핑 판매 '+rows.map(x=>`${BLOGNAME[x.k]} ${x.sales}개`).join(' · ')),element('div','yesterday',`${new Date(r.updated).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})} 조회`+(r.errors&&r.errors.length?` · 일부 못 읽음(${r.errors.join(', ')})`:'')));
-  $('moneysum').append(card);
+  $('moneysum').append(card);mateCard(r);
   const byDay={};for(const k of ids)for(const d of ((ads[k]&&(last?ads[k].last_days:ads[k].days))||[]))byDay[d.date]=(byDay[d.date]||0)+d.won;
   const days=Object.keys(byDay).sort();if(!days.length)return;
   const c2=element('article','card'),max=Math.max(1,...days.map(d=>byDay[d])),best=days.reduce((a,d)=>byDay[d]>byDay[a]?d:a,days[0]);
