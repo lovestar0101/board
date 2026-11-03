@@ -84,11 +84,11 @@ function recentCard(r){const c=element('article','card');c.append(element('div',
   c.append(b,st);return c;}
 function setReq(m){reqMsg=m;const s=$('rstate');if(s)s.textContent=m;const b=$('rbtn');if(b)b.disabled=reqBusy;}
 async function askRevenue(){const t=data&&data.revenue_topic;if(!t||reqBusy)return;reqBusy=true;const since=Math.floor(Date.now()/1000)-5,asked=Date.now();
-  try{await fetch('https://ntfy.sh/'+t,{method:'POST',body:'불러오기'});}catch{reqBusy=false;setReq('요청을 못 보냈어요 — 인터넷 연결을 확인해 주세요');return;}
+  try{await fetch('https://ntfy.sh/'+t,{method:'POST',body:'refresh'});}catch{reqBusy=false;setReq('요청을 못 보냈어요 — 인터넷 연결을 확인해 주세요');return;}
   setReq('📨 노트북에 요청했어요 · 노트북이 켜져 있으면 10분 안에 바뀌어요 (창을 닫아도 돼요)');
   for(let i=0;i<80;i++){await new Promise(z=>setTimeout(z,15000));
-    try{const txt=await (await fetch(`https://ntfy.sh/${t}/json?poll=1&since=${since}`)).text(),m=txt.split('\n').filter(Boolean).map(l=>JSON.parse(l)).filter(x=>x.event==='message'&&x.message!=='불러오기').map(x=>x.message).pop();
-      if(m&&m.startsWith('실패')){reqBusy=false;setReq('⚠️ '+m);return;}if(m==='읽는 중')setReq('⏳ 노트북이 네이버에서 수익을 읽는 중이에요 (1분쯤)');if(m==='완료')setReq('✅ 다 읽었어요 · 현황판에 반영되는 중');}catch{}
+    try{const txt=await (await fetch(`https://ntfy.sh/${t}/json?poll=1&since=${since}`)).text(),m=txt.split('\n').filter(Boolean).map(l=>JSON.parse(l)).filter(x=>x.event==='message'&&x.message!=='refresh').map(x=>x.message).pop();
+      if(m==='fail'){reqBusy=false;setReq('⚠️ 노트북이 수익을 못 읽었어요 — 블로그 Edge가 켜져 있고 로그인됐는지 봐 주세요');return;}if(m==='reading')setReq('⏳ 노트북이 네이버에서 수익을 읽는 중이에요 (1분쯤)');if(m==='done')setReq('✅ 다 읽었어요 · 현황판에 반영되는 중');}catch{}
     await refresh();if(data&&data.revenue&&new Date(data.revenue.updated).getTime()>asked){reqBusy=false;setReq('✅ 새 수익으로 바꿨어요');return;}}
   reqBusy=false;setReq('노트북이 응답이 없어요 — 꺼져 있으면 켜진 뒤 다시 눌러 주세요');}
 function renderAll(r){const ids=Object.keys(BLOGNAME),h=r.history||{},T=x=>x.ad+x.sh+x.mt,months=[...new Set(ids.flatMap(k=>Object.keys(h[k]||{})))].sort();
