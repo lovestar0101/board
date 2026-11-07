@@ -14,12 +14,33 @@
 #money .card{padding:12px 14px;border-radius:16px}#money .cards{gap:8px}#money .big{font-size:30px;margin-top:2px}.sumrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.sumrow div{background:var(--soft);border-radius:12px;padding:8px 10px;font-size:13px;color:var(--muted)}.sumrow b{display:block;font-size:20px;color:var(--ink)}.wonbars{display:flex;gap:3px;height:58px;align-items:flex-end;margin-top:10px}.wonbars .col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;font-size:9px;color:var(--muted);height:100%}.wonbars .bar{width:80%;background:var(--accent);min-height:0}.wonbars .lbl{height:12px;line-height:12px}
 .mlabel2{font-size:14px;font-weight:700;color:var(--muted)}table.mt{width:100%;border-collapse:collapse;margin-top:12px;font-variant-numeric:tabular-nums;font-size:14px}.mt th{font-size:12px;color:var(--muted);font-weight:600;text-align:right;padding:4px 2px;border-bottom:1px solid var(--line)}.mt td{text-align:right;padding:8px 2px;border-bottom:1px solid var(--line);white-space:nowrap}.mt td:first-child,.mt th:first-child{text-align:left;font-weight:700}.mt .sumc{font-weight:800}.mt .totr td{border-bottom:0;font-weight:800;color:var(--accent)}#money .card+.card{margin-top:0}
 :root{--ad:#2a78d6;--sh:#eb6834;--mt:#1baf7a}@media(prefers-color-scheme:dark){:root{--ad:#3987e5;--sh:#d95926;--mt:#199e70}}.sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}.sw.ad,.stack .ad,.wonbars .bar.ad{background:var(--ad)}.wonbars .bar.dstack{background:none;display:flex;flex-direction:column}.wonbars .dstack .ad{background:var(--ad)}.wonbars .dstack .sh{background:var(--sh)}.sw.sh,.stack .sh{background:var(--sh)}.sw.mt,.stack .mt{background:var(--mt)}.legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin:6px 0 2px}.gapt{margin-top:14px}.brow{margin-top:12px}.btop{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px}.btop b{font-variant-numeric:tabular-nums}.stack{display:flex;gap:2px;height:12px;margin-top:5px}.stack span{border-radius:4px;min-width:3px}.dayrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:15px;margin-top:6px;font-variant-numeric:tabular-nums}.dayrow b{font-weight:750}.dayrow .dd{font-size:13px;color:var(--muted)}.bsub{font-size:12px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.tile{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}.tile.first{border-color:var(--accent)}.tile .d{font-size:12px;color:var(--muted)}.tile .v{font-size:24px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums}.tile .s{font-size:12px;color:var(--muted)}.refresh{width:100%;margin-top:12px}.refresh:disabled{opacity:.55;cursor:wait}.rstate{font-size:13px;color:var(--muted);margin-top:6px;min-height:18px}#money details summary{font-size:13px;color:var(--accent);cursor:pointer;margin-top:12px;font-weight:650}.wonbars .col{cursor:pointer}.wonbars .bar{max-width:28px}.wonbars .col.on .bar{outline:2px solid var(--ink);outline-offset:1px}.wonbars .col.on{color:var(--ink);font-weight:750}
+#ledger{--lf:#9aa1ac;--ld:#f06a9b;--ls:#3d7ef0;--lu:#f28c38;--lr:#bfe8d3;overflow-wrap:anywhere}
+.tabs button[data-tab]{padding:8px 4px;white-space:nowrap}
+#ledger .lhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:18px 0 12px}
+#ledger h2{margin:0;font-size:21px}#ledger .card{margin-bottom:12px}#ledger .lbox{font-size:13px;color:var(--muted)}
+#ledger .lhero{font-size:13px;color:var(--muted);margin-top:14px}#ledger .lhero strong{display:block;font-size:clamp(28px,8.5vw,40px);color:var(--green);letter-spacing:-1px;line-height:1.4}
+#ledger .lhero strong.low{color:var(--red)}#ledger .lday{display:inline-block;background:var(--soft);color:var(--green);font-size:13px;font-weight:700;padding:5px 10px;border-radius:99px;margin-top:8px}
+#ledger .lbar{display:flex;height:22px;border-radius:8px;overflow:hidden;margin:18px 0 10px}#ledger .lbar span{min-width:0}
+#ledger .llegend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px}#ledger .llegend div{display:flex;flex-wrap:wrap;align-items:center;gap:4px}#ledger .llegend i{width:10px;height:10px;border-radius:3px;flex-shrink:0}#ledger .llegend b{margin-left:auto}
+#ledger .lnote{font-size:12px;color:var(--muted);margin-top:10px;white-space:pre-wrap}#ledger .lsection{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px;font-size:15px}
+#ledger .ltextbtn{background:transparent;color:var(--accent);font-size:13px;padding:4px 8px}
+#ledger .ldate{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding:10px 0 6px}
+#ledger .litem{display:flex;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:11px 0;font-size:14px}#ledger .licon{width:32px;height:36px;border-radius:12px;background:var(--bg);display:grid;place-items:center;flex-shrink:0}
+#ledger .ldesc{flex:1;min-width:0}#ledger .ldesc b{display:block}#ledger .ldesc small{color:var(--muted);font-size:12px}#ledger .lamount{font-size:13px;font-weight:700;text-align:right}#ledger .ltag{font-size:10px;color:var(--muted);font-weight:400}
+#ledger .lside{display:flex;justify-content:space-between;gap:8px;font-size:13px}#ledger .lside b{color:var(--accent)}
+#ledger .lnav{display:flex;position:sticky;bottom:0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px;gap:2px;margin-top:16px;z-index:1}#ledger .lnav button{flex:1;min-width:0;background:transparent;color:var(--muted);font-size:13px;padding:8px 2px}#ledger .lnav button[aria-selected=true]{color:var(--ink);background:var(--soft)}
+#ledger input,#ledger select{font:inherit;min-width:0;width:100%;max-width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px}#ledger label{display:block;font-size:14px;margin:10px 0 5px}#ledger .lcontrols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+#ledger .lmonth{font-size:13px;display:grid;gap:5px}#ledger .lmonth>div{display:flex;justify-content:space-between;gap:8px}#ledger .ldelete{display:block;font-size:11px;padding:2px 6px;min-height:44px;background:transparent;color:var(--red);margin-left:auto}#ledger .lsave{width:100%;margin-top:16px}
+
 </style>
 <main>
   <header class="top"><div><div class="eyebrow">MY DAILY BOARD</div><h1>나의 현황판</h1></div><button id="lock" class="lock" aria-label="암호를 잊고 잠그기" hidden>🔒</button></header>
   <p class="sub">블로그도, AI도. 지금 한눈에.</p>
   <section id="gate" class="card gate"><h2>반가워요 👋</h2><p class="sub">암호를 입력하면 나의 현황이 열려요.<br>이 기기에서는 다음부터 바로 열려요.</p><form id="form"><label for="password">현황판 암호</label><input id="password" type="password" autocomplete="current-password" required><button id="open" type="submit">현황판 열기</button></form><div id="error" class="error" role="alert"></div></section>
-  <div id="dashboard" hidden><div id="status" class="status" role="status" aria-live="polite"></div><nav class="tabs" role="tablist"><button role="tab" data-tab="main" aria-selected="true">현황</button><button role="tab" data-tab="money" aria-selected="false">💰 수익</button></nav><div id="main"><h2>블로그 방문자 · 오늘</h2><div id="blogs" class="cards"></div><h2>티스토리 예약</h2><div id="tistory" class="cards"></div><h2>AI 남은 한도</h2><div id="ai" class="cards"></div></div><div id="money" hidden><nav class="tabs" id="monthtabs"><button data-m="month" aria-selected="true">이번 달</button><button data-m="last_month" aria-selected="false">지난달</button><button data-m="all" aria-selected="false">전체</button></nav><h2 id="moneytitle">이번 달 수익</h2><div id="moneysum" class="cards"></div><div id="adpost" class="cards"></div><div id="shop" class="cards"></div><p class="muted" style="font-size:13px">광고 = 네이버 애드포스트, 쇼핑 = 쇼핑커넥트(주문 기준 예상액이라 구매확정 뒤 정산액과 조금 다를 수 있어요).</p></div><p class="foot">5분마다 새 자료 확인 · 시간은 한국 기준<br>미확인은 한도 정보를 받지 못한 항목이에요.</p></div>
+  <div id="dashboard" hidden><div id="status" class="status" role="status" aria-live="polite"></div><nav class="tabs" role="tablist"><button role="tab" data-tab="main" aria-selected="true">현황</button><button role="tab" data-tab="money" aria-selected="false">💰 수익</button><button role="tab" data-tab="ledger" aria-selected="false">💳 가계부</button></nav><div id="main"><h2>블로그 방문자 · 오늘</h2><div id="blogs" class="cards"></div><h2>티스토리 예약</h2><div id="tistory" class="cards"></div><h2>AI 남은 한도</h2><div id="ai" class="cards"></div></div><div id="money" hidden><nav class="tabs" id="monthtabs"><button data-m="month" aria-selected="true">이번 달</button><button data-m="last_month" aria-selected="false">지난달</button><button data-m="all" aria-selected="false">전체</button></nav><h2 id="moneytitle">이번 달 수익</h2><div id="moneysum" class="cards"></div><div id="adpost" class="cards"></div><div id="shop" class="cards"></div><p class="muted" style="font-size:13px">광고 = 네이버 애드포스트, 쇼핑 = 쇼핑커넥트(주문 기준 예상액이라 구매확정 뒤 정산액과 조금 다를 수 있어요).</p></div><section id="ledger" hidden aria-label="가계부">
+<section id="ledger-gate" class="card gate"><h2>💳 나의 가계부</h2><p class="sub">현황판과 다른 가계부 암호를 입력해 주세요.<br>암호는 이 탭을 닫으면 잊어요.</p><form id="ledger-form"><label for="ledger-password">가계부 암호</label><input id="ledger-password" type="password" autocomplete="off" required><button id="ledger-open" type="submit">가계부 열기</button></form></section>
+<div id="ledger-error" class="error" role="status" aria-live="polite"></div>
+<div id="ledger-app" hidden><div id="ledger-content"></div><nav id="ledger-nav" class="lnav" aria-label="가계부 메뉴"><button data-view="home" aria-selected="true">🏠 홈</button><button data-view="items" aria-selected="false">📋 내역</button><button data-view="input" aria-selected="false">＋ 입력</button><button data-view="months" aria-selected="false">📅 월별</button></nav></div></section><p class="foot">5분마다 새 자료 확인 · 시간은 한국 기준<br>미확인은 한도 정보를 받지 못한 항목이에요.</p></div>
 </main>
 <script>
 'use strict';
@@ -130,7 +151,7 @@ function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost'
   c2.append(bars,cap,tableView(['날짜','광고','쇼핑','합계'],[...days].reverse().map(d=>[dayLabel(d),W(byDay[d].ad),W(byDay[d].sh),W(T(d))])));show(days[days.length-1]);$('adpost').append(c2);
 }
 let tab='main';try{tab=localStorage.getItem('my-board-tab')||'main';}catch{}
-function showTab(t){tab=t;for(const b of document.querySelectorAll('.tabs button[data-tab]'))b.setAttribute('aria-selected',String(b.dataset.tab===t));$('main').hidden=t!=='main';$('money').hidden=t!=='money';try{localStorage.setItem('my-board-tab',t);}catch{}}
+function showTab(t){if(!['main','money','ledger'].includes(t))t='main';tab=t;$('ledger').hidden=t!=='ledger';for(const b of document.querySelectorAll('.tabs button[data-tab]'))b.setAttribute('aria-selected',String(b.dataset.tab===t));$('main').hidden=t!=='main';$('money').hidden=t!=='money';try{localStorage.setItem('my-board-tab',t);}catch{}}
 for(const b of document.querySelectorAll('.tabs button[data-tab]'))b.addEventListener('click',()=>showTab(b.dataset.tab));for(const b of document.querySelectorAll('#monthtabs button'))b.addEventListener('click',()=>{mon=b.dataset.m;if(data)renderMoney();});showTab(tab);
 function updateStatus(){if(!data)return;const mins=Math.max(0,Math.floor((Date.now()-new Date(data.generated_at).getTime())/60000)), old=stale(data.generated_at)||Object.values(data.ai).some(item=>stale(item.ok_at));const s=$('status');s.classList.toggle('warn',old||fetchFailed);s.textContent=old?(stale(data.generated_at)?`⚠️ ${mins}분 전 갱신 — 노트북이 꺼져 있을 수 있어요`:'⚠️ AI 한도 갱신이 늦거나 미확인인 항목이 있어요'):fetchFailed?'⚠️ 새 자료를 받지 못했어요 — 마지막 자료 표시 중':'✅ '+clock(new Date(data.generated_at))+' 갱신';}
 const bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
@@ -141,5 +162,224 @@ $('lock').addEventListener('click',()=>{session++;password='';data=null;try{loca
 async function refresh(){if(!password||refreshing)return;refreshing=true;const token=session;try{const result=await readData(password);if(token===session){data=result;fetchFailed=false;render();}}catch{if(token===session){fetchFailed=true;updateStatus();}}finally{refreshing=false;}}
 setInterval(refresh,5*60000);setInterval(()=>{if(data)render();},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(data)render();refresh();}});
 try{const saved=localStorage.getItem(KEY);if(saved)unlock(saved);}catch{}
+</script>
+<script id="ledger-script">
+'use strict';
+// Empty settings keep all new envelopes on this device.
+const LEDGER_FB={databaseURL:'',path:''};
+const LEDGER_SESSION='my-ledger-password', LEDGER_LOCAL='my-ledger-envelopes-v1';
+let ledgerData=null, ledgerPassword='', ledgerAdded={}, ledgerMonth='', ledgerView='home', ledgerFilter='전체', ledgerBusy=false, ledgerEpoch=0;
+const ledgerToday=()=>kstDay(new Date());
+const ledgerDate=d=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&!Number.isNaN(Date.parse(d+'T00:00:00Z'))&&new Date(d+'T00:00:00Z').toISOString().slice(0,10)===d;
+const ledgerDay=(item,month)=>item.d.length===5?month.slice(0,4)+'-'+item.d:item.d;
+const ledgerB64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
+async function ledgerKey(pw,salt,usage){
+  const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:200000,hash:'SHA-256'},key,{name:'AES-GCM',length:256},false,usage);
+}
+async function ledgerDecrypt(e,pw){
+  if(!e||e.v!==1||!['salt','iv','ct'].every(k=>typeof e[k]==='string'))throw Error('envelope');
+  const salt=bytes(e.salt),iv=bytes(e.iv),ct=bytes(e.ct);
+  if(salt.length!==16||iv.length!==12||ct.length<16)throw Error('envelope');
+  const key=await ledgerKey(pw,salt,['decrypt']);
+  return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await crypto.subtle.decrypt({name:'AES-GCM',iv},key,ct)));
+}
+async function ledgerEncrypt(value,pw){
+  const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),key=await ledgerKey(pw,salt,['encrypt']);
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(JSON.stringify(value)));
+  return {v:1,salt:ledgerB64(salt),iv:ledgerB64(iv),ct:ledgerB64(ct)};
+}
+// One adapter: per-ID PUT prevents another phone's entries being overwritten.
+const ledgerStore={
+  url(id=''){
+    const base=LEDGER_FB.databaseURL.replace(/\/$/,'');
+    const url=new URL(base);
+    if(url.protocol!=='https:'||!/^([a-z0-9-]+\.)?(firebaseio\.com|[a-z0-9-]+\.firebasedatabase\.app)$/.test(url.hostname)||url.search||url.hash)throw Error('설정');
+    const parts=LEDGER_FB.path.split('/').filter(Boolean);
+    if(!parts.length||parts.some(p=>/[.#$\[\]]/.test(p)))throw Error('설정');
+    return base+'/'+parts.map(encodeURIComponent).join('/')+(id?'/'+encodeURIComponent(id):'')+'.json';
+  },
+  remote(){if(Boolean(LEDGER_FB.databaseURL)!==Boolean(LEDGER_FB.path))throw Error('설정');return Boolean(LEDGER_FB.databaseURL);},
+  async load(){
+    let value;
+    if(this.remote()){const r=await fetch(this.url(),{cache:'no-store',referrerPolicy:'no-referrer'});if(!r.ok)throw Error('읽기');value=await r.json();}
+    else value=JSON.parse(localStorage.getItem(LEDGER_LOCAL)||'null');
+    if(value===null)return {};
+    if(typeof value!=='object'||Array.isArray(value))throw Error('저장 형식');
+    return value;
+  },
+  async put(id,envelope){
+    if(this.remote()){
+      const r=await fetch(this.url(id),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(envelope),referrerPolicy:'no-referrer'});
+      if(!r.ok)throw Error('저장');
+    }else{
+      const all=await this.load();if(envelope===null)delete all[id];else all[id]=envelope;
+      localStorage.setItem(LEDGER_LOCAL,JSON.stringify(all));
+    }
+  }
+};
+const LEDGER_KINDS=['지출','환불·취소','고정비','저축','부수입','송금 받음'];
+function ledgerValidateEntry(x){
+  if(!x||!ledgerDate(x.d)||!LEDGER_KINDS.includes(x.k)||!Number.isSafeInteger(x.a)||x.a===0||Math.abs(x.a)>1000000000000||!['s','w','c','t'].every(k=>typeof x[k]==='string'&&x[k].length<=200))throw Error('항목');
+  if((['지출','고정비'].includes(x.k)?-1:1)*x.a<=0)throw Error('금액');
+  return x;
+}
+function ledgerValidateData(value){
+  if(!value||!Array.isArray(value.months)||!value.months.length)throw Error('자료');
+  const seen=new Set();
+  for(const m of value.months){
+    if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(m.month)||seen.has(m.month)||!Array.isArray(m.items)||!Array.isArray(m.notes)||!m.notes.every(n=>typeof n==='string'))throw Error('월');
+    seen.add(m.month);
+    for(const k of ['salary','side','side_in_box','box','fixed','date','saving','spent','refund','left','unknown_sent','unknown_got'])if(!Number.isSafeInteger(m[k]))throw Error('금액');
+    for(const x of m.items)if(!x||typeof x.d!=='string'||!ledgerDate(ledgerDay(x,m.month))||ledgerDay(x,m.month).slice(0,7)!==m.month||!Number.isSafeInteger(x.a)||!['t','k','c','s','w'].every(k=>typeof x[k]==='string'))throw Error('내역');
+  }
+  return value;
+}
+// Baseline totals include estimates; apply only added entries, never sum baseline items again.
+function ledgerRecalculate(base,entries){
+  const m={...base,items:[...(base.items||[])],notes:[...(base.notes||[])]};
+  for(const x of entries){
+    if(x.d.slice(0,7)!==m.month)continue;
+    m.items.push(x);
+    const a=Math.abs(x.a);
+    if(x.k==='지출'){m.spent+=a;m.left-=a;}
+    else if(x.k==='환불·취소'){m.spent-=a;m.refund+=a;m.left+=a;}
+    else if(x.k==='고정비'){m.fixed+=a;m.left-=a;}
+    else if(x.k==='저축'){m.saving+=a;m.left-=a;}
+    else if(x.k==='부수입'){m.side+=a;if(m.month<='2026-10'){m.side_in_box+=a;m.box+=a;m.left+=a;}}
+    else if(x.k==='송금 받음')m.unknown_got+=a;
+  }
+  m.ok=m.left>=0;
+  return m;
+}
+function ledgerMonths(){
+  const bases=new Map(ledgerData.months.map(m=>[m.month,m]));
+  for(const x of Object.values(ledgerAdded)){
+    const month=x.d.slice(0,7);
+    if(!bases.has(month))bases.set(month,{month,salary:0,side:0,side_in_box:0,box:0,fixed:0,date:0,saving:0,spent:0,refund:0,left:0,unknown_sent:0,unknown_got:0,items:[],notes:['원본 자료가 없는 달이에요. 상자 금액은 0원부터 계산해요.']});
+  }
+  return [...bases.values()].map(m=>ledgerRecalculate(m,Object.values(ledgerAdded))).sort((a,b)=>a.month.localeCompare(b.month));
+}
+function ledgerMessage(text){$('ledger-error').textContent=text;}
+async function ledgerUnlock(pw){
+  if(ledgerBusy)return;ledgerBusy=true;const epoch=ledgerEpoch;
+  $('ledger-open').disabled=true;ledgerMessage('가계부를 여는 중이에요…');
+  try{
+    const r=await fetch('ledger.enc.json',{cache:'no-store'});if(!r.ok)throw Error('자료');
+    const value=ledgerValidateData(await ledgerDecrypt(await r.json(),pw)), envelopes=await ledgerStore.load(), added={};
+    for(const [id,e] of Object.entries(envelopes)){
+      if(!/^[a-zA-Z0-9_-]{1,80}$/.test(id))throw Error('ID');
+      added[id]={...ledgerValidateEntry(await ledgerDecrypt(e,pw)),id};
+    }
+    if(epoch!==ledgerEpoch)return;
+    ledgerData=value;ledgerPassword=pw;ledgerAdded=added;
+    try{sessionStorage.setItem(LEDGER_SESSION,pw);}catch{}
+    $('ledger-password').value='';$('ledger-gate').hidden=true;$('ledger-app').hidden=false;
+    const months=ledgerMonths();ledgerMonth=months.some(m=>m.month===ledgerToday().slice(0,7))?ledgerToday().slice(0,7):months.at(-1).month;
+    ledgerView='home';ledgerMessage('');ledgerRender();
+  }catch{
+    if(epoch===ledgerEpoch){try{sessionStorage.removeItem(LEDGER_SESSION);}catch{}ledgerMessage('열지 못했어요. 가계부 암호·자료·저장소 연결을 확인해 주세요. 저장된 항목은 바꾸지 않았어요.');}
+  }finally{ledgerBusy=false;$('ledger-open').disabled=false;}
+}
+function ledgerLock(){
+  ledgerEpoch++;ledgerPassword='';ledgerData=null;ledgerAdded={};
+  try{sessionStorage.removeItem(LEDGER_SESSION);}catch{}
+  $('ledger-content').replaceChildren();$('ledger-app').hidden=true;$('ledger-gate').hidden=false;$('ledger-password').value='';ledgerMessage('');
+}
+function ledgerCategory(x){
+  if(['지출','환불·취소'].includes(x.k))return '쓴 돈';
+  if(x.k.startsWith('송금'))return '송금';
+  return x.k;
+}
+function ledgerList(host,items,month){
+  const ordered=[...items].sort((a,b)=>(ledgerDay(b,month)+(b.t||'')).localeCompare(ledgerDay(a,month)+(a.t||''))),groups=new Map();
+  for(const x of ordered){const d=ledgerDay(x,month);if(!groups.has(d))groups.set(d,[]);groups.get(d).push(x);}
+  if(!ordered.length)host.append(element('p','muted','아직 내역이 없어요.'));
+  for(const [d,rows] of groups){
+    const h=element('div','ldate');h.append(element('span','',new Date(d+'T12:00:00+09:00').toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'long',day:'numeric',weekday:'short'})),element('span','',won(rows.reduce((s,x)=>s+x.a,0))));host.append(h);
+    for(const x of rows){
+      const row=element('div','litem'),desc=element('div','ldesc'),amt=element('div','lamount',won(x.a));
+      const title=element('b','',x.s||x.w||x.k);title.append(element('span','ltag',' '+ledgerCategory(x)));
+      desc.append(title,element('small','',[x.w,x.c].filter(Boolean).join(' · ')));
+      row.append(element('div','licon',({'고정비':'🚌','저축':'💙','부수입':'💜','송금':'↔️'})[ledgerCategory(x)]||'🛍️'),desc,amt);
+      if(x.id){const del=element('button','ldelete','삭제');del.type='button';del.setAttribute('aria-label',(x.s||x.k)+' 입력 삭제');del.addEventListener('click',()=>ledgerDelete(x.id));amt.append(del);}
+      host.append(row);
+    }
+  }
+}
+function ledgerHome(host,m,months){
+  const card=element('article','card'),box=element('div','lbox','이번 달 상자 (지난달 월급'+(m.side_in_box?' + 부수입':'')+') ');box.append(element('b','',won(m.box)));
+  const hero=element('div','lhero','앞으로 쓸 수 있는 돈');hero.append(element('strong',m.left<0?'low':'',won(m.left)));card.append(box,hero);
+  if(m.month===ledgerToday().slice(0,7)){
+    const today=ledgerToday(),days=new Date(Date.UTC(+today.slice(0,4),+today.slice(5,7),0)).getUTCDate()-Number(today.slice(8))+1;
+    card.append(element('div','lday',`하루 ${won(Math.floor(m.left/days))}씩 · 남은 ${days}일`));
+  }
+  const values=[['고정비',m.fixed,'--lf'],['데이트통장',m.date,'--ld'],['저축',m.saving,'--ls'],['쓴 돈',m.spent,'--lu'],['남은 돈',m.left,'--lr']],total=values.reduce((s,x)=>s+Math.max(0,x[1]),0),bar=element('div','lbar'),legend=element('div','llegend');
+  bar.setAttribute('role','img');bar.setAttribute('aria-label',values.map(x=>x[0]+' '+won(x[1])).join(', '));
+  for(const [name,value,color] of values){const part=element('span');part.style.width=(total?Math.max(0,value)/total*100:0)+'%';part.style.background=`var(${color})`;bar.append(part);const line=element('div'),dot=element('i');dot.style.background=`var(${color})`;line.append(dot,element('span','',name),element('b','',won(value)));legend.append(line);}
+  card.append(bar,legend);
+  if(m.left<0)card.append(element('p','low','초과액 '+won(-m.left)));
+  for(const note of m.notes)card.append(element('div','lnote','※ '+note));host.append(card);
+  const heading=element('div','lsection','최근 쓴 돈'),all=element('button','ltextbtn','전체 보기 ›');all.addEventListener('click',()=>{ledgerView='items';ledgerFilter='전체';ledgerRender();});heading.append(all);host.append(heading);
+  const list=element('article','card'),recent=m.items.filter(x=>['지출','고정비','환불·취소'].includes(x.k)).sort((a,b)=>(ledgerDay(b,m.month)+b.t).localeCompare(ledgerDay(a,m.month)+a.t)).slice(0,5);ledgerList(list,recent,m.month);host.append(list);
+  const side=element('article','card lside');side.append(element('span','','💜 부수입 모으기 (11월부터 상자와 따로)'),element('b','',won(months.filter(x=>x.month>='2026-11').reduce((s,x)=>s+x.side-x.side_in_box,0))));host.append(side);
+  host.append(element('p','lnote',`송금 (용도 모름) · 보낸 돈 ${won(m.unknown_sent)} · 받은 돈 ${won(m.unknown_got)} — 남은 돈 계산에서 제외해요.`));
+}
+async function ledgerDelete(id){
+  if(ledgerBusy||!confirm('이 입력 항목을 삭제할까요?'))return;
+  ledgerBusy=true;const epoch=ledgerEpoch;
+  try{await ledgerStore.put(id,null);if(epoch!==ledgerEpoch)return;delete ledgerAdded[id];ledgerRender();ledgerMessage('삭제했어요.');}
+  catch{ledgerMessage('삭제하지 못했어요. 저장소 연결을 확인해 주세요.');}
+  finally{ledgerBusy=false;}
+}
+function ledgerInput(host){
+  const form=element('form','card');
+  for(const [id,label,type] of [['d','날짜','date'],['s','가게','text'],['w','산 물건','text'],['a','금액 (원)','number']]){
+    const input=element('input');input.id='ledger-add-'+id;input.name=id;input.type=type;input.required=['d','a'].includes(id);
+    if(type==='date')input.value=ledgerToday();else if(type==='number'){input.min='1';input.max='1000000000000';input.step='1';input.inputMode='numeric';}else input.maxLength=200;
+    const l=element('label','',label);l.htmlFor=input.id;form.append(l,input);
+  }
+  const l=element('label','','종류'),select=element('select');select.id='ledger-add-k';select.name='k';l.htmlFor=select.id;
+  for(const [v,t] of [['지출','쓴 돈'],['환불·취소','환불'],['고정비','고정비'],['저축','저축'],['부수입','부수입'],['송금 받음','친구에게 받은 돈']]){const o=element('option','',t);o.value=v;select.append(o);}form.append(l,select);
+  form.append(element('p','lnote','친구에게 받은 돈은 용도 모름 송금으로 따로 모아요. 모든 입력은 가계부 암호로 암호화해 저장해요.'));
+  const save=element('button','lsave','암호화해서 저장');save.type='submit';form.append(save);host.append(form);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();if(ledgerBusy)return;
+    const fields=new FormData(form),amount=Number(fields.get('a')),kind=fields.get('k');
+    const entry={d:fields.get('d'),t:new Date().toTimeString().slice(0,8),k:kind,c:'',s:fields.get('s').trim(),w:fields.get('w').trim(),a:amount*(['지출','고정비'].includes(kind)?-1:1)};
+    try{ledgerValidateEntry(entry);}catch{ledgerMessage('날짜와 금액(1원 이상 정수)을 확인해 주세요.');return;}
+    ledgerBusy=true;save.disabled=true;const epoch=ledgerEpoch,pw=ledgerPassword,id=crypto.randomUUID();
+    try{
+      const envelope=await ledgerEncrypt(entry,pw);if(epoch!==ledgerEpoch)return;
+      await ledgerStore.put(id,envelope);if(epoch!==ledgerEpoch)return;
+      ledgerAdded[id]={...entry,id};ledgerMonth=entry.d.slice(0,7);ledgerView='home';ledgerRender();ledgerMessage('저장했어요. 남은 돈에 바로 반영했어요.');
+    }catch{ledgerMessage('저장하지 못했어요. 입력을 남겨 두었으니 저장 공간·연결을 확인하고 다시 눌러 주세요.');}
+    finally{ledgerBusy=false;save.disabled=false;}
+  });
+}
+function ledgerRender(){
+  if(!ledgerData)return;
+  const months=ledgerMonths();if(!months.some(m=>m.month===ledgerMonth))ledgerMonth=months.at(-1).month;
+  const m=months.find(m=>m.month===ledgerMonth),host=$('ledger-content');host.replaceChildren();
+  for(const b of document.querySelectorAll('#ledger-nav button'))b.setAttribute('aria-selected',String(b.dataset.view===ledgerView));
+  const header=element('div','lhead');header.append(element('h2','',`${+ledgerMonth.slice(5)}월 가계부`));const lock=element('button','ltextbtn','🔒 잠그기');lock.addEventListener('click',ledgerLock);header.append(lock);host.append(header);
+  if(['home','items'].includes(ledgerView)){
+    const controls=element('div','lcontrols'),group=element('div'),label=element('label','','달 선택'),select=element('select');label.htmlFor='ledger-month';select.id='ledger-month';
+    for(const x of [...months].reverse()){const o=element('option','',x.month.replace('-','년 ')+'월');o.value=x.month;o.selected=x.month===ledgerMonth;select.append(o);}select.addEventListener('change',()=>{ledgerMonth=select.value;ledgerRender();});group.append(label,select);controls.append(group);
+    if(ledgerView==='items'){const group=element('div'),label=element('label','','분류'),filter=element('select');filter.id='ledger-filter';label.htmlFor=filter.id;for(const k of ['전체','쓴 돈','고정비','저축','송금','부수입']){const o=element('option','',k);o.selected=k===ledgerFilter;filter.append(o);}filter.addEventListener('change',()=>{ledgerFilter=filter.value;ledgerRender();});group.append(label,filter);controls.append(group);}host.append(controls);
+  }
+  if(ledgerView==='home')ledgerHome(host,m,months);
+  else if(ledgerView==='items'){const list=element('article','card');ledgerList(list,m.items.filter(x=>ledgerFilter==='전체'||ledgerCategory(x)===ledgerFilter),m.month);host.append(list);}
+  else if(ledgerView==='months')for(const x of [...months].reverse()){
+    const card=element('article','card lmonth'),head=element('div');head.append(element('b','',x.month),element('span','',x.ok?'✅':'❌'));card.append(head);
+    for(const [name,v] of [['상자',x.box],['사용 (고정비·데이트·저축·쓴 돈)',x.fixed+x.date+x.saving+x.spent],['남은 돈',x.left]]){const row=element('div');row.append(element('span','',name),element('b',v<0?'low':'',won(v)));card.append(row);}host.append(card);
+  }else ledgerInput(host);
+}
+$('ledger-form').addEventListener('submit',e=>{e.preventDefault();ledgerUnlock($('ledger-password').value);});
+for(const b of document.querySelectorAll('#ledger-nav button'))b.addEventListener('click',()=>{ledgerView=b.dataset.view;ledgerRender();});
+$('lock').addEventListener('click',ledgerLock);
+try{const saved=sessionStorage.getItem(LEDGER_SESSION);if(saved)ledgerUnlock(saved);}catch{}
+setInterval(()=>{if(ledgerData&&ledgerView==='home'&&!$('ledger').hidden)ledgerRender();},60000);
+
 </script>
 </html>
