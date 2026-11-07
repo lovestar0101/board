@@ -24,6 +24,7 @@
 #ledger .llegend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px}#ledger .llegend div{display:flex;flex-wrap:wrap;align-items:center;gap:4px}#ledger .llegend i{width:10px;height:10px;border-radius:3px;flex-shrink:0}#ledger .llegend b{margin-left:auto}
 #ledger .lreg{border-top:1px solid var(--line)}#ledger .lreg summary{display:flex;align-items:center;gap:8px;padding:13px 0;font-size:14px;font-weight:700;cursor:pointer;list-style:none}#ledger .lreg summary::-webkit-details-marker{display:none}#ledger .lreg summary::after{content:'›';color:var(--muted);transition:transform .2s}#ledger .lreg[open] summary::after{transform:rotate(90deg)}#ledger .lreg summary i{width:10px;height:10px;border-radius:3px;flex-shrink:0}#ledger .lreg summary b{margin-left:auto}
 #ledger .lregrow{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding:8px 0 8px 18px;font-size:13px;border-top:1px dashed var(--line)}#ledger .lregrow small{grid-row:2;color:var(--muted);font-size:12px}#ledger .lregrow b{grid-row:1/3;grid-column:2;align-self:center}
+#ledger .lnow{display:grid;gap:4px;margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--bg);font-size:13px;color:var(--muted)}#ledger .lnow b{color:var(--ink);float:right}
 #ledger .lnote{font-size:12px;color:var(--muted);margin-top:10px;white-space:pre-wrap}#ledger .lsection{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px;font-size:15px}
 #ledger .ltextbtn{background:transparent;color:var(--accent);font-size:13px;padding:4px 8px}
 #ledger .ldate{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding:10px 0 6px}
@@ -311,7 +312,7 @@ function ledgerList(host,items,month){
 }
 function ledgerHome(host,m,months){
   const card=element('article','card'),box=element('div','lbox','이번 달 상자 (지난달 월급'+(m.side_in_box?' + 부수입':'')+') ');box.append(element('b','',won(m.box)));
-  const hero=element('div','lhero','앞으로 쓸 수 있는 돈');hero.append(element('strong',m.left<0?'low':'',won(m.left)));card.append(box,hero);
+  const hero=element('div','lhero','앞으로 쓸 수 있는 돈');hero.append(element('strong',m.left<0?'low':'',won(m.left)));card.append(box,hero);if(m.planned>0){const now=element('div','lnow'),row=(t,v)=>{const d=element('div','',t);d.append(element('b','',v));return d;};now.append(row('지금 남은 돈 (예정 빠지기 전)',won(m.left+m.planned)),row('아직 빠질 예정 (고정비·저축)','-'+won(m.planned)));card.append(now);}
   if(m.month===ledgerToday().slice(0,7)){
     const today=ledgerToday(),days=new Date(Date.UTC(+today.slice(0,4),+today.slice(5,7),0)).getUTCDate()-Number(today.slice(8))+1;
     card.append(element('div','lday',`하루 ${won(Math.floor(m.left/days))}씩 · 남은 ${days}일`));
