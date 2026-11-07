@@ -22,6 +22,8 @@
 #ledger .lhero strong.low{color:var(--red)}#ledger .lday{display:inline-block;background:var(--soft);color:var(--green);font-size:13px;font-weight:700;padding:5px 10px;border-radius:99px;margin-top:8px}
 #ledger .lbar{display:flex;height:22px;border-radius:8px;overflow:hidden;margin:18px 0 10px}#ledger .lbar span{min-width:0}
 #ledger .llegend{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px}#ledger .llegend div{display:flex;flex-wrap:wrap;align-items:center;gap:4px}#ledger .llegend i{width:10px;height:10px;border-radius:3px;flex-shrink:0}#ledger .llegend b{margin-left:auto}
+#ledger .lreg{border-top:1px solid var(--line)}#ledger .lreg summary{display:flex;align-items:center;gap:8px;padding:13px 0;font-size:14px;font-weight:700;cursor:pointer;list-style:none}#ledger .lreg summary::-webkit-details-marker{display:none}#ledger .lreg summary::after{content:'›';color:var(--muted);transition:transform .2s}#ledger .lreg[open] summary::after{transform:rotate(90deg)}#ledger .lreg summary i{width:10px;height:10px;border-radius:3px;flex-shrink:0}#ledger .lreg summary b{margin-left:auto}
+#ledger .lregrow{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding:8px 0 8px 18px;font-size:13px;border-top:1px dashed var(--line)}#ledger .lregrow small{grid-row:2;color:var(--muted);font-size:12px}#ledger .lregrow b{grid-row:1/3;grid-column:2;align-self:center}
 #ledger .lnote{font-size:12px;color:var(--muted);margin-top:10px;white-space:pre-wrap}#ledger .lsection{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px;font-size:15px}
 #ledger .ltextbtn{background:transparent;color:var(--accent);font-size:13px;padding:4px 8px}
 #ledger .ldate{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding:10px 0 6px}
@@ -320,6 +322,13 @@ function ledgerHome(host,m,months){
   card.append(bar,legend);
   if(m.left<0)card.append(element('p','low','초과액 '+won(-m.left)));
   for(const note of m.notes)card.append(element('div','lnote','※ '+note));host.append(card);
+  if(m.regular){const rc=element('div','card');rc.append(element('div','lsection','📌 매달 나가는 돈 (누르면 펼쳐져요)'));
+    for(const [g,label,color] of [['fixed','고정비','--lf'],['date','데이트통장','--ld'],['saving','저축','--ls']]){
+      const list=Array.isArray(m.regular[g])?m.regular[g]:[],det=document.createElement('details'),sum=document.createElement('summary'),dot=element('i'),wait=list.filter(r=>!r.paid).length;
+      det.className='lreg';dot.style.background=`var(${color})`;sum.append(dot,element('span','',label+(wait?` · 예정 ${wait}건`:'')),element('b','',won(list.reduce((s,r)=>s+r.a,0))));det.append(sum);
+      for(const r of list){const row=element('div','lregrow');row.append(element('span','',r.n),element('small','',`${Number(r.d)}일 · ${r.paid?'✅ 빠짐':'⏳ 예정'}`),element('b','',won(r.a)));det.append(row);}
+      if(!list.length)det.append(element('div','lnote','이번 달 기록이 없어요'));rc.append(det);}
+    host.append(rc);}
   const heading=element('div','lsection','최근 쓴 돈'),all=element('button','ltextbtn','전체 보기 ›');all.addEventListener('click',()=>{ledgerView='items';ledgerFilter='전체';ledgerRender();});heading.append(all);host.append(heading);
   const list=element('article','card'),recent=m.items.filter(x=>['지출','고정비','환불·취소'].includes(x.k)).sort((a,b)=>(ledgerDay(b,m.month)+b.t).localeCompare(ledgerDay(a,m.month)+a.t)).slice(0,5);ledgerList(list,recent,m.month);host.append(list);
   const side=element('article','card lside');side.append(element('span','','💜 부수입 모으기 (11월부터 상자와 따로)'),element('b','',won(months.filter(x=>x.month>='2026-11').reduce((s,x)=>s+x.side-x.side_in_box,0))));host.append(side);
