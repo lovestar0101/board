@@ -35,7 +35,7 @@
 #ledger input,#ledger select{font:inherit;min-width:0;width:100%;max-width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px}#ledger label{display:block;font-size:14px;margin:10px 0 5px}#ledger .lcontrols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 #ledger .lmonth{font-size:13px;display:grid;gap:5px}#ledger .lmonth>div{display:flex;justify-content:space-between;gap:8px}#ledger .ldelete{display:block;font-size:11px;padding:2px 6px;min-height:44px;background:transparent;color:var(--red);margin-left:auto}#ledger .lsave{width:100%;margin-top:16px}
 
-.mbar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--line,#ddd);margin:6px 0}.mbar i{display:block;height:100%}.mleg{display:grid;gap:4px;font-size:14px}.mleg div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}.mdot{width:10px;height:10px;border-radius:50%;display:inline-block}</style>
+.mbar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--line,#ddd);margin:6px 0}.mbar i{display:block;height:100%}.mleg{display:grid;gap:4px;font-size:14px}.mleg div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}.mdot{width:10px;height:10px;border-radius:50%;display:inline-block}#ledger .card>.muted{font-size:14px;margin-top:8px}</style>
 <main>
   <header class="top"><div><div class="eyebrow">MY DAILY BOARD</div><h1>나의 현황판</h1></div><button id="lock" class="lock" aria-label="암호를 잊고 잠그기" hidden>🔒</button></header>
   <p class="sub">블로그도, AI도. 지금 한눈에.</p>
@@ -390,17 +390,24 @@ function ledgerRender(){
 const MCOL=['#f59e0b','#ef4444','#10b981','#3b82f6','#8b5cf6','#ec4899'],MICON={'외식':'🍽️','여행':'🚆','캠핑':'⛺','간식':'🍢','고정':'📌'};
 function moimHome(host){
   const mo=ledgerData.moim;if(!mo||!mo.months.length){host.append(element('p','muted','냥지갑 자료가 아직 없어요.'));return;}
-  const g=mo.months.at(-1),mine=g.put-g.spent,mon=+g.month.slice(5),card=element('article','card');
-  const hero=element('div','lhero',`${mon}월 남은 돈`);hero.append(element('strong',mine<0?'low':'',won(mine)));card.append(hero);
+  // 쓸 돈 = 지금 모임통장 + 이번 달 아직 안 들어온 기본 입금(재민 1일·은별 15일). 남은 월급은 1일에 바로 파킹으로 가므로 예산에 안 들어감.
+  const g=mo.months.at(-1),mon=+g.month.slice(5),R=mo.rules||{base:[],budget:0},today=ledgerToday(),cur=today.slice(0,7)===g.month,card=element('article','card');
+  const last=new Date(+g.month.slice(0,4),mon,0).getDate(),day=cur?+today.slice(8,10):last;
+  const due=cur?R.base.filter(b=>!g.items.some(x=>x.k==='입금'&&x.s===b.who)):[],avail=mo.balance+due.reduce((s,b)=>s+b.a,0);
+  const from=mo.balance>0||!due.length?day:Math.max(day,Math.min(...due.map(b=>b.day))),perWeek=Math.floor(avail/Math.max(1,(last-from+1)/7)/1000)*1000;
+  const hero=element('div','lhero',`${mon}월 남은 쓸 돈`);hero.append(element('strong',avail<0?'low':'',won(avail)));card.append(hero);
   const rows=element('div','lnow'),row=(t,v,c)=>{const d=element('div','',t);d.append(element('b',c||'',v));return d;};
-  rows.append(row(`${mon}월 넣은 돈 (재민)`,won(g.put)),row(`${mon}월 쓴 돈`,'-'+won(g.spent)));
+  rows.append(row('💳 지금 모임통장',won(mo.balance)));for(const b of due)rows.append(row(`${b.day}일 ${b.who} 입금 예정`,'+'+won(b.a)));
+  if(cur&&avail>0)rows.append(row(from>day?`${from}일부터 한 주에 쓸 돈`:'이번 주 쓸 수 있는 돈',`약 ${won(perWeek)}`));
   card.append(rows);
-  const bank=element('div','lnow');bank.append(row(`🅿️ 파킹통장 (${+mo.as_of.slice(5,7)}/${+mo.as_of.slice(8)} 기준)`,won(mo.parking||0)),row('💳 모임통장 잔액',won(mo.balance)));card.append(bank);
-  const cats=Object.entries(g.cats).sort((a,b)=>b[1]-a[1]),bar=element('div','mbar'),leg=element('div','mleg');
+  if(R.budget){const pct=Math.round(g.spent/R.budget*100),b=element('div','mbar'),seg=element('i');seg.style.width=Math.min(100,pct)+'%';seg.style.background=pct>100?'#ef4444':'#10b981';b.append(seg);
+    card.append(element('div','muted',`${mon}월 예산 ${won(R.budget)} 중 ${won(g.spent)} 썼어요 (${pct}%)`),b);}
+  host.append(card);
+  const park=element('article','card'),pr=element('div','lnow');pr.append(row(`🅿️ 파킹통장 (${+mo.as_of.slice(5,7)}/${+mo.as_of.slice(8)} 기준)`,won(mo.parking||0)));park.append(pr,element('div','muted','결혼 준비처럼 계획한 일에만 써요'));host.append(park);
+  const card2=element('article','card'),cats=Object.entries(g.cats).sort((a,b)=>b[1]-a[1]),bar=element('div','mbar'),leg=element('div','mleg');
   cats.forEach(([c,v],i)=>{const col=MCOL[i%MCOL.length],seg=element('i');seg.style.width=(v/g.spent*100)+'%';seg.style.background=col;bar.append(seg);
     const d=element('div'),dot=element('span','mdot');dot.style.background=col;d.append(dot,element('span','',`${MICON[c]||'💸'} ${c}`),element('b','',won(v)));leg.append(d);});
-  if(cats.length)card.append(element('div','muted','어디에 썼나'),bar,leg);
-  host.append(card);
+  if(cats.length){card2.append(element('div','muted',`${mon}월 어디에 썼나`),bar,leg);host.append(card2);}
   const list=element('article','card');ledgerList(list,g.items.filter(x=>x.k==='지출'||x.k==='고정'),g.month);host.append(list);   // 진짜 쓴 것만
 }
 $('ledger-form').addEventListener('submit',e=>{e.preventDefault();ledgerUnlock($('ledger-password').value);});
