@@ -327,7 +327,7 @@ function ledgerHome(host,m,months){
     for(const [g,label,color] of [['fixed','고정비','--lf'],['date','데이트통장','--ld'],['saving','저축','--ls']]){
       const list=Array.isArray(m.regular[g])?m.regular[g]:[],det=document.createElement('details'),sum=document.createElement('summary'),dot=element('i'),wait=list.filter(r=>!r.paid).length;
       det.className='lreg';dot.style.background=`var(${color})`;sum.append(dot,element('span','',label+(wait?` · 예정 ${wait}건`:'')),element('b','',won(list.reduce((s,r)=>s+r.a,0))));det.append(sum);
-      for(const r of list){const row=element('div','lregrow');row.append(element('span','',r.n),element('small','',`${Number(r.d)}일 · ${r.paid?'✅ 빠짐':'⏳ 예정'}`),element('b','',won(r.a)));det.append(row);}
+      for(const r of list){const row=element('div','lregrow');row.append(element('span','',r.n),element('small','',`${r.d?Number(r.d)+'일':'날짜 미정'} · ${r.paid?'✅ 빠짐':'⏳ 예정'}`),element('b','',won(r.a)));det.append(row);}
       if(!list.length)det.append(element('div','lnote','이번 달 기록이 없어요'));rc.append(det);}
     host.append(rc);}
   const heading=element('div','lsection','최근 쓴 돈'),all=element('button','ltextbtn','전체 보기 ›');all.addEventListener('click',()=>{ledgerView='items';ledgerFilter='전체';ledgerRender();});heading.append(all);host.append(heading);
