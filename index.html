@@ -303,7 +303,7 @@ function ledgerList(host,items,month){
     for(const x of rows){
       const row=element('div','litem'),desc=element('div','ldesc'),amt=element('div','lamount',won(x.a));
       const title=element('b','',x.s||x.w||x.k);title.append(element('span','ltag',' '+ledgerCategory(x)));
-      desc.append(title,element('small','',[x.w,x.c].filter(Boolean).join(' · ')));
+      desc.append(title,element('small','',[x.p&&'💳 '+x.p,x.w,x.c].filter(Boolean).join(' · ')));
       row.append(element('div','licon',({'고정비':'🚌','저축':'💙','부수입':'💜','송금':'↔️'})[ledgerCategory(x)]||'🛍️'),desc,amt);
       if(x.id){const del=element('button','ldelete','삭제');del.type='button';del.setAttribute('aria-label',(x.s||x.k)+' 입력 삭제');del.addEventListener('click',()=>ledgerDelete(x.id));amt.append(del);}
       host.append(row);
