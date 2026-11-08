@@ -35,12 +35,12 @@
 #ledger input,#ledger select{font:inherit;min-width:0;width:100%;max-width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px}#ledger label{display:block;font-size:14px;margin:10px 0 5px}#ledger .lcontrols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 #ledger .lmonth{font-size:13px;display:grid;gap:5px}#ledger .lmonth>div{display:flex;justify-content:space-between;gap:8px}#ledger .ldelete{display:block;font-size:11px;padding:2px 6px;min-height:44px;background:transparent;color:var(--red);margin-left:auto}#ledger .lsave{width:100%;margin-top:16px}
 
-</style>
+.mbar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--line,#ddd);margin:6px 0}.mbar i{display:block;height:100%}.mleg{display:grid;gap:4px;font-size:14px}.mleg div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}.mdot{width:10px;height:10px;border-radius:50%;display:inline-block}</style>
 <main>
   <header class="top"><div><div class="eyebrow">MY DAILY BOARD</div><h1>나의 현황판</h1></div><button id="lock" class="lock" aria-label="암호를 잊고 잠그기" hidden>🔒</button></header>
   <p class="sub">블로그도, AI도. 지금 한눈에.</p>
   <section id="gate" class="card gate"><h2>반가워요 👋</h2><p class="sub">암호를 입력하면 나의 현황이 열려요.<br>이 기기에서는 다음부터 바로 열려요.</p><form id="form"><label for="password">현황판 암호</label><input id="password" type="password" autocomplete="current-password" required><button id="open" type="submit">현황판 열기</button></form><div id="error" class="error" role="alert"></div></section>
-  <div id="dashboard" hidden><div id="status" class="status" role="status" aria-live="polite"></div><nav class="tabs" role="tablist"><button role="tab" data-tab="main" aria-selected="true">현황</button><button role="tab" data-tab="money" aria-selected="false">💰 수익</button><button role="tab" data-tab="ledger" aria-selected="false">💳 가계부</button></nav><div id="main"><h2>블로그 방문자 · 오늘</h2><div id="blogs" class="cards"></div><h2>티스토리 예약</h2><div id="tistory" class="cards"></div><h2>AI 남은 한도</h2><div id="ai" class="cards"></div></div><div id="money" hidden><nav class="tabs" id="monthtabs"><button data-m="month" aria-selected="true">이번 달</button><button data-m="last_month" aria-selected="false">지난달</button><button data-m="all" aria-selected="false">전체</button></nav><h2 id="moneytitle">이번 달 수익</h2><div id="moneysum" class="cards"></div><div id="adpost" class="cards"></div><div id="shop" class="cards"></div><p class="muted" style="font-size:13px">광고 = 네이버 애드포스트, 쇼핑 = 쇼핑커넥트(주문 기준 예상액이라 구매확정 뒤 정산액과 조금 다를 수 있어요).</p></div><section id="ledger" hidden aria-label="가계부">
+  <div id="dashboard" hidden><div id="status" class="status" role="status" aria-live="polite"></div><nav class="tabs" role="tablist"><button role="tab" data-tab="main" aria-selected="true">현황</button><button role="tab" data-tab="money" aria-selected="false">💰 수익</button><button role="tab" data-tab="ledger" aria-selected="false">💳 가계부</button><button role="tab" data-tab="moim" aria-selected="false">🐱 냥지갑</button></nav><div id="main"><h2>블로그 방문자 · 오늘</h2><div id="blogs" class="cards"></div><h2>티스토리 예약</h2><div id="tistory" class="cards"></div><h2>AI 남은 한도</h2><div id="ai" class="cards"></div></div><div id="money" hidden><nav class="tabs" id="monthtabs"><button data-m="month" aria-selected="true">이번 달</button><button data-m="last_month" aria-selected="false">지난달</button><button data-m="all" aria-selected="false">전체</button></nav><h2 id="moneytitle">이번 달 수익</h2><div id="moneysum" class="cards"></div><div id="adpost" class="cards"></div><div id="shop" class="cards"></div><p class="muted" style="font-size:13px">광고 = 네이버 애드포스트, 쇼핑 = 쇼핑커넥트(주문 기준 예상액이라 구매확정 뒤 정산액과 조금 다를 수 있어요).</p></div><section id="ledger" hidden aria-label="가계부">
 <section id="ledger-gate" class="card gate"><h2>💳 나의 가계부</h2><p class="sub">현황판과 다른 가계부 암호를 입력해 주세요.<br>암호는 이 기기에 기억해요. 🔒 잠그기를 누르면 지워요.</p><form id="ledger-form"><label for="ledger-password">가계부 암호</label><input id="ledger-password" type="password" autocomplete="off" required><button id="ledger-open" type="submit">가계부 열기</button></form></section>
 <div id="ledger-error" class="error" role="status" aria-live="polite"></div>
 <div id="ledger-app" hidden><div id="ledger-content"></div><nav id="ledger-nav" class="lnav" aria-label="가계부 메뉴"><button data-view="home" aria-selected="true">🏠 홈</button><button data-view="items" aria-selected="false">📋 내역</button><button data-view="input" aria-selected="false">＋ 입력</button><button data-view="months" aria-selected="false">📅 월별</button></nav></div></section><p class="foot">5분마다 새 자료 확인 · 시간은 한국 기준<br>미확인은 한도 정보를 받지 못한 항목이에요.</p></div>
@@ -154,7 +154,7 @@ function renderMoney(){const r=data.revenue;for(const id of ['moneysum','adpost'
   c2.append(bars,cap,tableView(['날짜','광고','쇼핑','합계'],[...days].reverse().map(d=>[dayLabel(d),W(byDay[d].ad),W(byDay[d].sh),W(T(d))])));show(days[days.length-1]);$('adpost').append(c2);
 }
 let tab='main';try{tab=localStorage.getItem('my-board-tab')||'main';}catch{}
-function showTab(t){if(!['main','money','ledger'].includes(t))t='main';tab=t;$('ledger').hidden=t!=='ledger';for(const b of document.querySelectorAll('.tabs button[data-tab]'))b.setAttribute('aria-selected',String(b.dataset.tab===t));$('main').hidden=t!=='main';$('money').hidden=t!=='money';try{localStorage.setItem('my-board-tab',t);}catch{}}
+function showTab(t){if(!['main','money','ledger','moim'].includes(t))t='main';tab=t;$('ledger').hidden=t!=='ledger'&&t!=='moim';if(t==='ledger'||t==='moim')setTimeout(()=>{ledgerView=t==='moim'?'moim':ledgerView==='moim'?'home':ledgerView;ledgerRender();});for(const b of document.querySelectorAll('.tabs button[data-tab]'))b.setAttribute('aria-selected',String(b.dataset.tab===t));$('main').hidden=t!=='main';$('money').hidden=t!=='money';try{localStorage.setItem('my-board-tab',t);}catch{}}
 for(const b of document.querySelectorAll('.tabs button[data-tab]'))b.addEventListener('click',()=>showTab(b.dataset.tab));for(const b of document.querySelectorAll('#monthtabs button'))b.addEventListener('click',()=>{mon=b.dataset.m;if(data)renderMoney();});showTab(tab);
 function updateStatus(){if(!data)return;const mins=Math.max(0,Math.floor((Date.now()-new Date(data.generated_at).getTime())/60000)), old=stale(data.generated_at)||Object.values(data.ai).some(item=>stale(item.ok_at));const s=$('status');s.classList.toggle('warn',old||fetchFailed);s.textContent=old?(stale(data.generated_at)?`⚠️ ${mins}분 전 갱신 — 노트북이 꺼져 있을 수 있어요`:'⚠️ AI 한도 갱신이 늦거나 미확인인 항목이 있어요'):fetchFailed?'⚠️ 새 자료를 받지 못했어요 — 마지막 자료 표시 중':'✅ '+clock(new Date(data.generated_at))+' 갱신';}
 const bytes=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
@@ -279,7 +279,7 @@ async function ledgerUnlock(pw){
     try{localStorage.setItem(LEDGER_SESSION,pw);}catch{}
     $('ledger-password').value='';$('ledger-gate').hidden=true;$('ledger-app').hidden=false;
     const months=ledgerMonths();ledgerMonth=months.some(m=>m.month===ledgerToday().slice(0,7))?ledgerToday().slice(0,7):months.at(-1).month;
-    ledgerView='home';ledgerMessage('');ledgerRender();
+    ledgerView=tab==='moim'?'moim':'home';ledgerMessage('');ledgerRender();
   }catch{
     if(epoch===ledgerEpoch){try{localStorage.removeItem(LEDGER_SESSION);}catch{}ledgerMessage('열지 못했어요. 가계부 암호·자료·저장소 연결을 확인해 주세요. 저장된 항목은 바꾸지 않았어요.');}
   }finally{ledgerBusy=false;$('ledger-open').disabled=false;}
@@ -304,7 +304,7 @@ function ledgerList(host,items,month){
       const row=element('div','litem'),desc=element('div','ldesc'),amt=element('div','lamount',won(x.a));
       const title=element('b','',x.s||x.w||x.k);title.append(element('span','ltag',' '+ledgerCategory(x)));
       desc.append(title,element('small','',[x.p&&'💳 '+x.p,x.w,x.c].filter(Boolean).join(' · ')));
-      row.append(element('div','licon',({'고정비':'🚌','저축':'💙','부수입':'💜','송금':'↔️'})[ledgerCategory(x)]||'🛍️'),desc,amt);
+      row.append(element('div','licon',({'고정비':'🚌','저축':'💙','부수입':'💜','송금':'↔️','입금':'💚','저금통':'🐷','실수':'↩️','고정':'📌','이자':'🪙'})[ledgerCategory(x)]||'🛍️'),desc,amt);
       if(x.id){const del=element('button','ldelete','삭제');del.type='button';del.setAttribute('aria-label',(x.s||x.k)+' 입력 삭제');del.addEventListener('click',()=>ledgerDelete(x.id));amt.append(del);}
       host.append(row);
     }
@@ -372,7 +372,7 @@ function ledgerRender(){
   const months=ledgerMonths();if(!months.some(m=>m.month===ledgerMonth))ledgerMonth=months.at(-1).month;
   const m=months.find(m=>m.month===ledgerMonth),host=$('ledger-content');host.replaceChildren();
   for(const b of document.querySelectorAll('#ledger-nav button'))b.setAttribute('aria-selected',String(b.dataset.view===ledgerView));
-  const header=element('div','lhead');header.append(element('h2','',`${+ledgerMonth.slice(5)}월 가계부`));const lock=element('button','ltextbtn','🔒 잠그기');lock.addEventListener('click',ledgerLock);header.append(lock);host.append(header);
+  $('ledger-nav').hidden=ledgerView==='moim';const header=element('div','lhead');header.append(element('h2','',ledgerView==='moim'?'🐱 냥지갑 (모임통장)':`${+ledgerMonth.slice(5)}월 가계부`));const lock=element('button','ltextbtn','🔒 잠그기');lock.addEventListener('click',ledgerLock);header.append(lock);host.append(header);
   if(['home','items'].includes(ledgerView)){
     const controls=element('div','lcontrols'),group=element('div'),label=element('label','','달 선택'),select=element('select');label.htmlFor='ledger-month';select.id='ledger-month';
     for(const x of [...months].reverse()){const o=element('option','',x.month.replace('-','년 ')+'월');o.value=x.month;o.selected=x.month===ledgerMonth;select.append(o);}select.addEventListener('change',()=>{ledgerMonth=select.value;ledgerRender();});group.append(label,select);controls.append(group);
@@ -383,7 +383,25 @@ function ledgerRender(){
   else if(ledgerView==='months')for(const x of [...months].reverse()){
     const card=element('article','card lmonth'),head=element('div');head.append(element('b','',x.month),element('span','',x.ok?'✅':'❌'));card.append(head);
     for(const [name,v] of [['상자',x.box],['사용 (고정비·데이트·저축·쓴 돈)',x.fixed+x.date+x.saving+x.spent],['남은 돈',x.left]]){const row=element('div');row.append(element('span','',name),element('b',v<0?'low':'',won(v)));card.append(row);}host.append(card);
-  }else ledgerInput(host);
+  }else if(ledgerView==='moim')moimHome(host);else ledgerInput(host);
+}
+
+// 냥지갑(모임통장): ledger.enc.json 안의 moim. 사진 보고 적은 내역을 make_ledger.py가 달마다 묶어 줌.
+const MCOL=['#f59e0b','#ef4444','#10b981','#3b82f6','#8b5cf6','#ec4899'],MICON={'외식':'🍽️','여행':'🚆','캠핑':'⛺','간식':'🍢','고정':'📌'};
+function moimHome(host){
+  const mo=ledgerData.moim;if(!mo||!mo.months.length){host.append(element('p','muted','냥지갑 자료가 아직 없어요.'));return;}
+  const g=mo.months.at(-1),mine=g.put-g.spent,back=g.end-mine,card=element('article','card');
+  const hero=element('div','lhero',`지금 모임통장 잔액 (${+mo.as_of.slice(5,7)}/${+mo.as_of.slice(8)} 기준)`);hero.append(element('strong','',won(mo.balance)));card.append(hero);
+  const rows=element('div','lnow'),row=(t,v,c)=>{const d=element('div','',t);d.append(element('b',c||'',v));return d;};
+  rows.append(row(`${+g.month.slice(5)}월 넣은 돈 (재민)`,won(g.put)),row(`${+g.month.slice(5)}월 쓴 돈`,'-'+won(g.spent)),row('이번 달 돈 중 남은 것',won(mine),mine<0?'low':''));
+  if(back>0)rows.append(row('🐷 이거열지마로 돌려놓을 돈',won(back)));
+  card.append(rows);
+  const cats=Object.entries(g.cats).sort((a,b)=>b[1]-a[1]),bar=element('div','mbar'),leg=element('div','mleg');
+  cats.forEach(([c,v],i)=>{const col=MCOL[i%MCOL.length],seg=element('i');seg.style.width=(v/g.spent*100)+'%';seg.style.background=col;bar.append(seg);
+    const d=element('div'),dot=element('span','mdot');dot.style.background=col;d.append(dot,element('span','',`${MICON[c]||'💸'} ${c}`),element('b','',won(v)));leg.append(d);});
+  if(cats.length)card.append(element('div','muted','어디에 썼나'),bar,leg);
+  host.append(card);
+  const list=element('article','card');ledgerList(list,g.items,g.month);host.append(list);
 }
 $('ledger-form').addEventListener('submit',e=>{e.preventDefault();ledgerUnlock($('ledger-password').value);});
 for(const b of document.querySelectorAll('#ledger-nav button'))b.addEventListener('click',()=>{ledgerView=b.dataset.view;ledgerRender();});
